@@ -1,0 +1,37 @@
+public class VfControllerExample {
+    
+    public List<Account> lstAcc {get; set;}
+    public String searchText {get; set;}
+    public String accId {get; set;}
+      
+    public VfControllerExample() {
+        lstAcc = [ SELECT Id, Name, AccountNumber, Phone FROM Account ];
+    }
+    
+    public void searchAcc() {
+        searchText = '%' + searchText + '%';
+        lstAcc = [ SELECT Id, Name, AccountNumber, Phone 
+                   FROM Account 
+                   WHERE Name LIKE : searchText ];
+        searchText = '';
+    }
+    
+    public PageReference edit() {        
+        String url = '/' + accId + '/e?retURL=/apex/ControllerDemoVf';
+        
+        PageReference objRef = new PageReference(url);
+        objRef.setRedirect(true);
+        return objRef;         
+    }
+
+    public PageReference deleteRecord() {   
+        Account acc = [ SELECT Id, Name, AccountNumber, Phone FROM Account WHERE Id =: accId ];
+        System.debug('acc : ' + acc);
+        if(acc != NULL) {
+            delete acc;
+        }
+        PageReference objRef = new PageReference('/apex/ControllerDemoVf');
+        objRef.setRedirect(true);
+        return objRef;
+    }
+}
