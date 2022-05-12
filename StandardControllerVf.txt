@@ -1,0 +1,27 @@
+<apex:page standardController="Account" extensions="VfExtensionController" >
+    
+    <apex:form >
+        <apex:sectionHeader title="New Account" subtitle="Account Edit"/>
+        
+        <apex:pageBlock title="Account Edit">
+            <apex:pageBlockSection columns="2" title="Account Information">
+                <apex:inputField value="{!objAccount.Name}" />
+                <apex:inputField value="{!objAccount.TestField__c}" required="true" />
+                <apex:inputField value="{!objAccount.AccountNumber}" />
+                <apex:inputField value="{!objAccount.Status__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="Description Information">
+                <apex:inputField value="{!objAccount.Description}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" />
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+            </apex:pageBlockButtons>            
+        </apex:pageBlock>
+        
+        
+        
+    </apex:form>    
+</apex:page>

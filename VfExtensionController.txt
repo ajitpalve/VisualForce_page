@@ -1,0 +1,19 @@
+public class VfExtensionController {
+    
+    public List<Account> lstAccounts {get; set;}
+    public Account objAccount {get; set;}
+    
+    public VfExtensionController( ApexPages.StandardController controller ) {
+        objAccount = new Account();
+        getAccount();
+    }
+    
+    public void getAccount() {
+        lstAccounts = [SELECT Id, Name, AccountNumber, Phone FROM Account ];
+    }
+
+    public void save() {
+        System.debug('objAccount : ' + objAccount);
+        insert objAccount;
+    }
+}

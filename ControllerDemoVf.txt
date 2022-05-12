@@ -1,0 +1,42 @@
+<apex:page controller="VfControllerExample">
+   
+    <apex:form >
+        
+        <div>
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="3">
+                    <apex:inputText value="{!searchText}" html-placeholder="Enter your text here" />
+                    <apex:commandButton action="{!searchAcc}" value="Search" reRender="result" status="loader"/>
+                    
+                    <apex:actionStatus id="loader">
+                    	<apex:facet name="start">
+                            <img src="/img/loading32.gif" width="25" height="25" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+    
+        <apex:pageBlock id="result">
+        	<apex:pageBlockTable value="{!lstAcc}" var="objAcc">
+            	<apex:column value="{!objAcc.Name}" />
+                <apex:column value="{!objAcc.AccountNumber}" />
+                <apex:column value="{!objAcc.Phone}" />
+                
+                <apex:column >
+                    <apex:facet name="header">Action</apex:facet>
+                    <apex:commandLink value="Edit" action="{!edit}" >
+                        <apex:param name="rowId" assignTo="{!accId}" value="{!objAcc.Id}" />
+                    </apex:commandLink>
+                    |
+                    <apex:commandLink value="Del" action="{!deleteRecord}" onclick="if(!confirm('Are you sure')) return false;">
+                        <apex:param name="rowId" assignTo="{!accId}" value="{!objAcc.Id}" />
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>
